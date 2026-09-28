@@ -1,6 +1,7 @@
 import { moment } from 'obsidian';
 
 import en from 'lang/locale/en';
+import zh from 'lang/locale/zh';
 
 
 /** Every translation key defined in `lang/locale/en.ts`. */
@@ -9,7 +10,8 @@ export type TranslationKey = keyof typeof en;
 export type TranslationTable = Record<TranslationKey, string>;
 
 const tables: Record<string, TranslationTable> = {
-	en
+	en,
+	zh
 };
 
 /**
@@ -25,7 +27,8 @@ function detectLanguage(): string {
 		// Ignore: local storage is unavailable.
 	}
 	if (!lang) lang = moment.locale();
-	return lang;
+	if (lang.startsWith('zh')) return 'zh';
+	return 'en';
 }
 
 let currentLanguage: string | null = null;
